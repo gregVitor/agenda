@@ -29,9 +29,12 @@ class PhonebookService
         ];
 
         $phonebook = $this->phonebookRepository->create($phonebookData);
-        $phonebook->id = hashEncodeId($phonebook->id);
-
+        
         return ($phonebook);
+    }
+
+    public function list(int $userId){
+        return $this->phonebookRepository->getByUserId($userId);
     }
 
     private function formatPhoneNumber($phoneNumber): string

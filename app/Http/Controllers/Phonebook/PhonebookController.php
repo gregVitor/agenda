@@ -15,7 +15,7 @@ class PhonebookController extends Controller
 
     public function __construct(
         CreatePhonebookValidator  $createPhonebookValidator,
-        PhonebookService $phonebookService
+        PhonebookService $phonebookService,
     ) {
         $this->createPhonebookValidator  = $createPhonebookValidator;
         $this->phonebookService = $phonebookService;
@@ -31,10 +31,20 @@ class PhonebookController extends Controller
     public function create(Request $request)
     {
         try {
-
             $this->createPhonebookValidator->createPhonebook($request->all());
 
             $phonebook = $this->phonebookService->create($request->user, $request);
+
+            return apiResponse("Ok.", 200, $phonebook);
+        } catch (\Exception $e) {
+            throw ($e);
+        }
+    }
+
+    public function list(Request $request)
+    {
+        try {
+            $phonebook = $this->phonebookService->list($request->user->id);
 
             return apiResponse("Ok.", 200, $phonebook);
         } catch (\Exception $e) {

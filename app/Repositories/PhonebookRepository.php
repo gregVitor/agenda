@@ -19,4 +19,10 @@ class PhonebookRepository
     ) {
         return $this->phonebook->create($phonebook);
     }
+
+    public function getByUserId(
+        int $userId
+    ) {
+        return $this->phonebook->where('user_id', $userId)->get();
+    }
 }
