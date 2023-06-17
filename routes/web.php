@@ -24,7 +24,9 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
     $router->post('login', 'Auth\AuthController@login');
 
     $router->group(['middleware' => 'auth'], function () use ($router) {
-
+        $router->group(['prefix' => 'phonebook'], function () use ($router) {
+            $router->post('', 'Phonebook\PhonebookController@create');
+        });        
     });
 
 });
