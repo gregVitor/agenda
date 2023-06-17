@@ -2,13 +2,13 @@
 
 namespace App\Validators;
 
-class CreatePhonebookValidator extends Validator
+class UpdatePhonebookValidator extends Validator
 {
-    public function createPhonebook(array $data)
+    public function updatePhonebook(array $data)
     {
         $rules = [
-            'phone' => 'required|min:11|max:11',
-            'name' => 'required|string',
+            'phone' => 'min:11|max:11',
+            'name' => 'string',
             'last_name' => 'string',
             'email' => 'email'
         ];

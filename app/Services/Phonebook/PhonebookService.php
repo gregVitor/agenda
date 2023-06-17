@@ -47,6 +47,30 @@ class PhonebookService
         return $phonebook;
     }
 
+    public function update(int $userId, $phonebookId, $request){
+        $phonebook = $this->phonebookRepository->findById($userId, $phonebookId);
+
+        if(isset($request->name) && $request->name != ''){
+            $phonebook->name = $request->name;
+        }
+
+        if(isset($request->last_name)){
+            $phonebook->last_name = $request->last_name;
+        }
+
+        if(isset($request->phone) && $request->phone != ''){
+            $phonebook->phone = $request->phone;
+        }
+
+        if(isset($request->email)){
+            $phonebook->email = $request->email;
+        }
+
+        $phonebook->save();
+
+        return $phonebook;
+    }
+
     private function formatPhoneNumber($phoneNumber): string
     {
         return '(' . substr($phoneNumber, 0, 2) . ') ' . substr($phoneNumber, 2, 5) . '-' . substr($phoneNumber, 7);
