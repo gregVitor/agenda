@@ -71,6 +71,12 @@ class PhonebookService
         return $phonebook;
     }
 
+    public function delete(int $userId, $phonebookId){
+        $phonebook = $this->phonebookRepository->findById($userId, $phonebookId);
+
+        return $phonebook->delete();
+    }
+
     private function formatPhoneNumber($phoneNumber): string
     {
         return '(' . substr($phoneNumber, 0, 2) . ') ' . substr($phoneNumber, 2, 5) . '-' . substr($phoneNumber, 7);

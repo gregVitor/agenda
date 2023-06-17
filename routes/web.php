@@ -29,7 +29,7 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
             $router->get('list', 'Phonebook\PhonebookController@list');
             $router->get('{phonebookId}', 'Phonebook\PhonebookController@find');
             $router->put('{phonebookId}', 'Phonebook\PhonebookController@update');
-
+            $router->delete('{phonebookId}', 'Phonebook\PhonebookController@delete');
         });        
     });
 

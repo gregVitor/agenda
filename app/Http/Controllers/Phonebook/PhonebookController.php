@@ -79,4 +79,15 @@ class PhonebookController extends Controller
             throw ($e);
         }
     }
+
+    public function delete(Request $request, int $phonebookId)
+    {
+        try {
+            $phonebook = $this->phonebookService->delete($request->user->id, $phonebookId, $request);
+
+            return apiResponse("Ok.", 200, $phonebook);
+        } catch (\Exception $e) {
+            throw ($e);
+        }
+    }
 }
