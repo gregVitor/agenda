@@ -7,46 +7,32 @@ use App\Repositories\UserRepository;
 use App\Validators\AuthValidator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Services\EmailService;
 
 class AuthController extends Controller
 {
-
-    /**
-     * @var UserRepository
-     */
     private $userRepository;
-
-    /**
-     * @var AuthValidator
-     */
     private $authValidator;
+    private $emailService;
 
-    /**
-     * Class constructor method.
-     *
-     * @param UserRepository $userRepository
-     * @param AuthValidator $authValidator
-     */
     public function __construct(
         UserRepository $userRepository,
-        AuthValidator  $authValidator
+        AuthValidator  $authValidator,
+        EmailService $emailService
     ) {
         $this->userRepository = $userRepository;
         $this->authValidator  = $authValidator;
+        $this->emailService = $emailService;
     }
 
-    /**
-     * Function create user
-     *
-     * @param  Request  $request
-     * @return Response
-     */
     public function registerUser(Request $request)
     {
         try {
             $this->authValidator->validateRegisterUser($request->all());
 
             $user = $this->userRepository->registerUser($request);
+
+            $this->emailService->sendEmailRegisterUser($user);
 
             $data = [
                 'id'    => hashEncodeId($user->id),
@@ -60,12 +46,6 @@ class AuthController extends Controller
         }
     }
 
-    /**
-     * Get a JWT via given credentials.
-     *
-     * @param  Request  $request
-     * @return Response
-     */
     public function login(Request $request)
     {
         try {
