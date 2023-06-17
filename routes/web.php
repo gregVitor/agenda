@@ -27,6 +27,7 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         $router->group(['prefix' => 'phonebook'], function () use ($router) {
             $router->post('', 'Phonebook\PhonebookController@create');
             $router->get('list', 'Phonebook\PhonebookController@list');
+            $router->get('{phonebookId}', 'Phonebook\PhonebookController@find');
         });        
     });
 

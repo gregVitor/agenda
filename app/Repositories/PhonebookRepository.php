@@ -25,4 +25,14 @@ class PhonebookRepository
     ) {
         return $this->phonebook->where('user_id', $userId)->get();
     }
+
+    public function findById(
+        int $userId,
+        int $phonebookId
+    ) {
+        return $this->phonebook
+            ->where('user_id', $userId)
+            ->where('user_id', $phonebookId)
+            ->first();
+    }
 }

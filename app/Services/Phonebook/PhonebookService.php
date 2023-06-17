@@ -37,6 +37,16 @@ class PhonebookService
         return $this->phonebookRepository->getByUserId($userId);
     }
 
+    public function find(int $userId, $phonebookId){
+        $phonebook = $this->phonebookRepository->findById($userId, $phonebookId);
+
+        if($phonebook == null){
+            abort(404, "Contato não encontrato");
+        }
+
+        return $phonebook;
+    }
+
     private function formatPhoneNumber($phoneNumber): string
     {
         return '(' . substr($phoneNumber, 0, 2) . ') ' . substr($phoneNumber, 2, 5) . '-' . substr($phoneNumber, 7);

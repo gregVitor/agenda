@@ -51,4 +51,15 @@ class PhonebookController extends Controller
             throw ($e);
         }
     }
+
+    public function find(Request $request, int $phonebookId)
+    {
+        try {
+            $phonebook = $this->phonebookService->find($request->user->id, $phonebookId);
+
+            return apiResponse("Ok.", 200, $phonebook);
+        } catch (\Exception $e) {
+            throw ($e);
+        }
+    }
 }
