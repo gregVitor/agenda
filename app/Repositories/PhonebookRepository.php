@@ -32,7 +32,7 @@ class PhonebookRepository
     ) {
         return $this->phonebook
             ->where('user_id', $userId)
-            ->where('user_id', $phonebookId)
+            ->where('id', $phonebookId)
             ->first();
     }
 }
